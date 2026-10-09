@@ -23,6 +23,27 @@
             } catch (e) {}
         })();
     </script>
+    <!-- Bloqueia F12, atalhos do DevTools, menu de contexto (botão direito) e seleção de código-fonte. -->
+    <script>
+        (function () {
+            document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+            document.addEventListener('keydown', function (e) {
+                var k = (e.key || '').toLowerCase();
+                var ctrl = e.ctrlKey || e.metaKey;
+                if (
+                    e.key === 'F12' ||
+                    (ctrl && e.shiftKey && (k === 'i' || k === 'j' || k === 'c' || k === 'k')) ||
+                    (ctrl && k === 'u') ||
+                    (ctrl && k === 's') ||
+                    (e.metaKey && e.altKey && (k === 'i' || k === 'j' || k === 'c' || k === 'u'))
+                ) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+            }, true);
+        })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;800&display=swap">
